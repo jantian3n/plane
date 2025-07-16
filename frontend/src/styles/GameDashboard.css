@@ -1,0 +1,595 @@
+/* Reset and base styles */
+.game-dashboard * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.game-dashboard {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f2f5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #333;
+}
+
+/* Header styles */
+.game-header {
+  background-color: #2c3e50;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.game-logo h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.balance, .level {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.balance {
+  color: #2ecc71;
+}
+
+.admin-link {
+  color: #3498db;
+  text-decoration: none;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  background-color: rgba(255,255,255,0.1);
+}
+
+.logout-btn {
+  background: none;
+  color: white;
+  border: 1px solid white;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+}
+
+.logout-btn:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+/* Main content area */
+.game-content {
+  flex: 1;
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  border: 1px solid #f5c6cb;
+}
+
+/* Airport section */
+.airport-section {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.airport-section h2 {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  color: #2c3e50;
+}
+
+.airport-visual {
+  background-color: #e9f7ef;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 2px solid #d5f5e3;
+  position: relative;
+  min-height: 300px;
+}
+
+.runway {
+  background-color: #7f8c8d;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+  margin: 0 auto;
+  width: 80%;
+}
+
+.terminal {
+  background-color: #3498db;
+  color: white;
+  padding: 1.5rem;
+  border-radius: 4px;
+  width: 150px;
+  text-align: center;
+  font-weight: bold;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.parking-area {
+  margin-top: 4rem;
+  padding: 1rem;
+  background-color: #d5dbdb;
+  border-radius: 4px;
+}
+
+.parking-area h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.parking-spots {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+.parking-spot {
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  background-color: #f8f9fa;
+  border: 2px dashed #ced4da;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.parking-spot.occupied {
+  border-style: solid;
+  border-color: #2ecc71;
+  background-color: #e8f8f5;
+}
+
+/* Dashboard cards */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.dashboard-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 1.5rem;
+}
+
+.dashboard-card h3 {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  color: #2c3e50;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.75rem;
+}
+
+/* Finance details */
+.finance-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.finance-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.finance-label {
+  font-weight: 500;
+  color: #7f8c8d;
+}
+
+.finance-value {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* Aircraft fleet */
+.fleet-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.plane-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.plane-item:hover {
+  transform: translateY(-2px);
+}
+
+.plane-item.parked {
+  border-left: 4px solid #2ecc71;
+}
+
+.plane-item.in-flight {
+  border-left: 4px solid #3498db;
+}
+
+.plane-item.maintenance {
+  border-left: 4px solid #e74c3c;
+}
+
+/* Aircraft display */
+.plane-display {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plane-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.plane-emoji {
+  font-size: 2rem;
+}
+
+.emoji-fallback {
+  font-size: 2rem;
+  opacity: 1;
+}
+
+.plane-image[src] + .emoji-fallback {
+  opacity: 0;
+}
+
+.plane-details {
+  flex: 1;
+}
+
+.plane-name {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.plane-model, .plane-status {
+  font-size: 0.875rem;
+  color: #7f8c8d;
+}
+
+.no-planes {
+  text-align: center;
+  padding: 2rem 0;
+  color: #7f8c8d;
+}
+
+/* Buttons */
+.add-plane-btn {
+  display: block;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.add-plane-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Nearby airports section */
+.nearby-airports-section {
+  margin-top: 1.5rem;
+}
+
+.airports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.nearby-airport-card {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  border-left: 4px solid #3498db;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.nearby-airport-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.nearby-airport-card h4 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.airport-info {
+  margin-bottom: 1rem;
+}
+
+.airport-info p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+
+.visit-airport-btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  width: 100%;
+  transition: background-color 0.2s;
+}
+
+.visit-airport-btn:hover {
+  background-color: #2980b9;
+}
+
+.visit-airport-btn:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.no-airports {
+  text-align: center;
+  padding: 2rem;
+  color: #7f8c8d;
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.add-plane-form, .parking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.form-group input, .form-group select {
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-group input:focus, .form-group select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* Fee preview */
+.fee-preview {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+}
+
+.fee-amount {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #e74c3c;
+  margin: 0.5rem 0;
+}
+
+.fee-info {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+}
+
+.benefit-info {
+  background-color: #e8f4f8;
+  padding: 0.75rem;
+  border-radius: 4px;
+  border-left: 3px solid #3498db;
+  margin: 0.5rem 0;
+}
+
+.benefit-info p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cancel-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #e9ecef;
+  color: #495057;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.submit-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Model preview */
+.model-preview {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.preview-plane {
+  width: 50px;
+  height: 50px;
+}
+
+.preview-plane .emoji-fallback {
+  font-size: 2.5rem;
+}
+
+/* Loading state */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.loading-text {
+  font-size: 1.25rem;
+  color: #7f8c8d;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Footer */
+.game-footer {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  text-align: center;
+  padding: 1rem;
+  margin-top: auto;
+  font-size: 0.875rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .game-header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .player-info {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .parking-spots {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
