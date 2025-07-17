@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/GameDashboard.css';
 
+// 定义API基础URL - 在开发和生产环境都适用
+const API_URL = '/api';
+
 function GameDashboard({ user, onLogout }) {
   const [gameData, setGameData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -29,8 +32,8 @@ function GameDashboard({ user, onLogout }) {
   const fetchGameData = async () => {
     try {
       const token = localStorage.getItem('token');
-      // 首先尝试获取游戏数据
-      const response = await fetch('http://localhost:5001/api/game/dashboard', {
+      // 使用相对路径而不是硬编码的localhost URL
+      const response = await fetch(`${API_URL}/game/dashboard`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -61,7 +64,8 @@ function GameDashboard({ user, onLogout }) {
   const fetchNearbyAirports = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5001/api/game/airports/available', {
+      // 使用相对路径而不是硬编码的localhost URL
+      const response = await fetch(`${API_URL}/game/airports/available`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -79,12 +83,61 @@ function GameDashboard({ user, onLogout }) {
     }
   };
   
+  // 初始化游戏
   const initializeGame = async () => {
-    // ... 现有的初始化函数保持不变 ...
+    try {
+      const token = localStorage.getItem('token');
+      // 使用相对路径而不是硬编码的localhost URL
+      const response = await fetch(`${API_URL}/game/initialize`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to initialize game');
+      }
+      
+      // 初始化成功后重新获取数据
+      await fetchGameData();
+    } catch (error) {
+      console.error('Error initializing game:', error);
+      setError('Failed to initialize game. Please try again.');
+      setLoading(false);
+    }
   };
 
+  // 添加飞机
   const handleAddPlane = async (e) => {
-    // ... 现有的添加飞机函数保持不变 ...
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem('token');
+      // 使用相对路径而不是硬编码的localhost URL
+      const response = await fetch(`${API_URL}/game/aircraft/purchase`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newPlane)
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to purchase aircraft');
+      }
+      
+      // 重新获取游戏数据
+      fetchGameData();
+      setShowAddPlaneForm(false);
+      setNewPlane({ name: '', model: 'ARJ21-700' });
+      alert('Aircraft successfully purchased!');
+    } catch (error) {
+      console.error('Error purchasing aircraft:', error);
+      setError(error.message || 'Failed to purchase aircraft');
+    }
   };
   
   // 选择机场
@@ -98,7 +151,8 @@ function GameDashboard({ user, onLogout }) {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5001/api/game/aircraft/park', {
+      // 使用相对路径而不是硬编码的localhost URL
+      const response = await fetch(`${API_URL}/game/aircraft/park`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

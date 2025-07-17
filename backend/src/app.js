@@ -22,7 +22,13 @@ const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://mongo:27017/web-game';
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ['http://20.184.37.11', 'http://20.184.37.11:80', 'http://localhost:80'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

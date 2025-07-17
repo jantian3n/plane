@@ -8,11 +8,12 @@ services:
     container_name: web-game-backend
     restart: always
     ports:
-      - "5001:5000"  # 将主机的5001端口映射到容器的5000端口
+      - "5001:5000"
     environment:
       - NODE_ENV=production
       - MONGODB_URI=mongodb://mongo:27017/web-game
       - JWT_SECRET=your_jwt_secret_key_here
+      - CORS_ORIGIN=http://20.184.37.11
     depends_on:
       - mongo
     networks:
@@ -22,6 +23,9 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile.frontend
+      args:
+        # 替换为您的VPS IP或域名
+        - REACT_APP_API_URL=/api
     container_name: web-game-frontend
     restart: always
     ports:
