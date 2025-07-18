@@ -1,0 +1,83 @@
+.leaderboard-panel {
+  width: 800px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.leaderboard-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.tab-btn {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #34495e;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab-btn.active {
+  background-color: #3498db;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leaderboard-table th, 
+.leaderboard-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #34495e;
+}
+
+.leaderboard-table th {
+  background-color: rgba(52, 73, 94, 0.5);
+  color: white;
+}
+
+.leaderboard-table tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.rank-column {
+  width: 50px;
+  text-align: center;
+}
+
+.rank {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #34495e;
+  font-weight: bold;
+}
+
+.rank-1 {
+  background-color: #f1c40f;
+  color: #34495e;
+}
+
+.rank-2 {
+  background-color: #bdc3c7;
+  color: #34495e;
+}
+
+.rank-3 {
+  background-color: #d35400;
+  color: white;
+}
+
+.table-value {
+  font-weight: bold;
+}
