@@ -32,7 +32,6 @@ function GameDashboard({ user, onLogout }) {
   const fetchGameData = async () => {
     try {
       const token = localStorage.getItem('token');
-      // 使用相对路径而不是硬编码的localhost URL
       const response = await fetch(`${API_URL}/game/dashboard`, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -64,7 +63,6 @@ function GameDashboard({ user, onLogout }) {
   const fetchNearbyAirports = async () => {
     try {
       const token = localStorage.getItem('token');
-      // 使用相对路径而不是硬编码的localhost URL
       const response = await fetch(`${API_URL}/game/airports/available`, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -87,7 +85,6 @@ function GameDashboard({ user, onLogout }) {
   const initializeGame = async () => {
     try {
       const token = localStorage.getItem('token');
-      // 使用相对路径而不是硬编码的localhost URL
       const response = await fetch(`${API_URL}/game/initialize`, {
         method: 'POST',
         headers: {
@@ -114,7 +111,6 @@ function GameDashboard({ user, onLogout }) {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      // 使用相对路径而不是硬编码的localhost URL
       const response = await fetch(`${API_URL}/game/aircraft/purchase`, {
         method: 'POST',
         headers: {
@@ -151,7 +147,6 @@ function GameDashboard({ user, onLogout }) {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      // 使用相对路径而不是硬编码的localhost URL
       const response = await fetch(`${API_URL}/game/aircraft/park`, {
         method: 'POST',
         headers: {
@@ -200,23 +195,23 @@ function GameDashboard({ user, onLogout }) {
     return '✈️';
   };
   
-  // 渲染飞机图像或emoji的组件
+  // 渲染飞机图像或emoji的组件 - 修改后的版本，emoji在图片下方
   const PlaneDisplay = ({ model, className = '' }) => {
     // 如果这个模型的图片之前加载失败过，直接显示emoji
     if (imgErrors[model]) {
       return <span className={`plane-emoji ${className}`}>{getPlaneEmoji(model)}</span>;
     }
     
-    // 否则尝试加载图片，失败时回退到emoji
+    // 否则尝试加载图片，emoji作为背景，图片加载失败时emoji会显示
     return (
       <div className={`plane-display ${className}`}>
+        <span className="emoji-fallback">{getPlaneEmoji(model)}</span>
         <img 
           src={`/images/aircraft/${model}.png`}
           alt={model}
           className="plane-image"
           onError={() => handleImgError(model)}
         />
-        <span className="emoji-fallback">{getPlaneEmoji(model)}</span>
       </div>
     );
   };
@@ -322,7 +317,7 @@ function GameDashboard({ user, onLogout }) {
           </div>
         </div>
 
-        {/* 新增: 周围的机场部分 */}
+        {/* 周围的机场部分 */}
         <div className="dashboard-card nearby-airports-section">
           <h3>🌎 Nearby Airports</h3>
           
@@ -400,7 +395,7 @@ function GameDashboard({ user, onLogout }) {
           </div>
         )}
 
-        {/* 新增: 停靠飞机的表单 */}
+        {/* 停靠飞机的表单 */}
         {showParkingForm && selectedAirport && (
           <div className="modal-overlay">
             <div className="modal-content">
@@ -475,6 +470,53 @@ function GameDashboard({ user, onLogout }) {
       <footer className="game-footer">
         <p>&copy; {new Date().getFullYear()} Airport Tycoon Game | Created by AI Developer</p>
       </footer>
+      
+      {/* 添加全局样式用于图片降级处理 */}
+      <style jsx global>{`
+        .plane-display {
+          position: relative;
+          display: inline-block;
+          width: 50px;
+          height: 50px;
+        }
+        
+        .plane-display .emoji-fallback {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+          z-index: 1;
+        }
+        
+        .plane-display .plane-image {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          z-index: 2;
+        }
+        
+        /* 当图片加载失败时隐藏图片 */
+        .plane-display img[src=""], 
+        .plane-display img:not([src]) {
+          display: none;
+        }
+        
+        /* 针对已知加载失败的图片直接显示emoji */
+        .plane-emoji {
+          font-size: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 50px;
+          height: 50px;
+        }
+      `}</style>
     </div>
   );
 }
